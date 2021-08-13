@@ -1,13 +1,16 @@
+const express = require('express')
+const projectsRouter = require('./project/router')
+const resourcesRouter = require('./resource/router')
+const tasksRouter = require('./task/router')
 // build your server here and require it from index.js
-const express = require('express');
 
-// import router(s)
+const server = express()
 
-const server = express();
+server.use(express.json())
 
-server.use(express.json());
-// plug in router
-// server.use('/api/schemes', SchemeRouter);
+server.use('/api/projects', projectsRouter)
+server.use('/api/resources', resourcesRouter)
+server.use('/api/tasks', tasksRouter)
 
 server.use('*', (req, res, next) => {
     next({status: 404,
@@ -21,4 +24,4 @@ server.use((err, req, res, next) => { //eslint-disable-line
     })
 })
 
-module.exports = server; 
+module.exports = server;
